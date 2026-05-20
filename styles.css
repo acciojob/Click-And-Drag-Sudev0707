@@ -54,6 +54,12 @@ body {
   font-weight: 100;
   color: rgba(0,0,0,0.15);
   box-shadow: inset 0 0 0 10px rgba(0,0,0,0.15);
+  position: relative;
+  cursor: grab;
+}
+
+.item:active {
+  cursor: grabbing;
 }
 
 .item:nth-child(9n+1) { background: dodgerblue;}
