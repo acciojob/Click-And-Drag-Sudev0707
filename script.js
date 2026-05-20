@@ -8,6 +8,7 @@ slider.addEventListener('mousedown', (e) => {
     slider.classList.add('active');
     startX = e.pageX - slider.offsetLeft;
     scrollLeft = slider.scrollLeft;
+    e.preventDefault();
 });
 
 slider.addEventListener('mouseleave', () => {
@@ -26,4 +27,16 @@ slider.addEventListener('mousemove', (e) => {
     const x = e.pageX - slider.offsetLeft;
     const walk = (x - startX) * 2;
     slider.scrollLeft = scrollLeft - walk;
+});
+
+// Ensure the container has scrollable width
+window.addEventListener('load', () => {
+    const items = document.querySelectorAll('.item');
+    let totalWidth = 0;
+    items.forEach(item => {
+        totalWidth += item.offsetWidth + 20;
+    });
+    if (slider.scrollWidth <= slider.clientWidth) {
+        slider.style.minWidth = totalWidth + 'px';
+    }
 });

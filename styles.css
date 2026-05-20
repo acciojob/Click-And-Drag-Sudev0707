@@ -23,11 +23,11 @@ body {
   padding: 100px;
   width: 100%;
   border: 1px solid white;
-  overflow-x: scroll;
+  overflow-x: auto;
   overflow-y: hidden;
   white-space: nowrap;
   user-select: none;
-  cursor: pointer;
+  cursor: grab;
   transition: all 0.2s;
   transform: scale(0.98);
   will-change: transform;
@@ -35,12 +35,12 @@ body {
   background: rgba(255,255,255,0.1);
   font-size: 0;
   perspective: 500px;
+  scroll-behavior: auto;
 }
 
 .items.active {
   background: rgba(255,255,255,0.3);
   cursor: grabbing;
-  cursor: -webkit-grabbing;
   transform: scale(1);
 }
 
@@ -55,11 +55,7 @@ body {
   color: rgba(0,0,0,0.15);
   box-shadow: inset 0 0 0 10px rgba(0,0,0,0.15);
   position: relative;
-  cursor: grab;
-}
-
-.item:active {
-  cursor: grabbing;
+  margin-right: 20px;
 }
 
 .item:nth-child(9n+1) { background: dodgerblue;}
