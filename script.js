@@ -6,8 +6,9 @@ let scrollLeft;
 slider.addEventListener('mousedown', (e) => {
     isDown = true;
     slider.classList.add('active');
-    startX = e.pageX - slider.offsetLeft;
+    startX = e.pageX;
     scrollLeft = slider.scrollLeft;
+    e.preventDefault();
 });
 
 slider.addEventListener('mouseleave', () => {
@@ -23,28 +24,25 @@ slider.addEventListener('mouseup', () => {
 slider.addEventListener('mousemove', (e) => {
     if (!isDown) return;
     e.preventDefault();
-    const x = e.pageX - slider.offsetLeft;
-    const walk = (x - startX) * 2;
+    const x = e.pageX;
+    const walk = (x - startX) * 1.5;
     slider.scrollLeft = scrollLeft - walk;
 });
 
-// Add touch support for mobile
-slider.addEventListener('touchstart', (e) => {
-    isDown = true;
-    slider.classList.add('active');
-    startX = e.touches[0].pageX - slider.offsetLeft;
-    scrollLeft = slider.scrollLeft;
-});
-
-slider.addEventListener('touchmove', (e) => {
-    if (!isDown) return;
-    e.preventDefault();
-    const x = e.touches[0].pageX - slider.offsetLeft;
-    const walk = (x - startX) * 2;
-    slider.scrollLeft = scrollLeft - walk;
-});
-
-slider.addEventListener('touchend', () => {
-    isDown = false;
-    slider.classList.remove('active');
+// Ensure the container has horizontal scroll
+window.addEventListener('load', () => {
+    // Force scroll to be enabled by making sure content width exceeds container width
+    const items = document.querySelectorAll('.item');
+    let totalWidth = 0;
+    items.forEach(item => {
+        totalWidth += item.offsetWidth + 20;
+    });
+    
+    if (slider.scrollWidth <= slider.clientWidth) {
+        slider.style.width = '100%';
+        slider.style.overflowX = 'scroll';
+    }
+    
+    // Initialize scroll position
+    slider.scrollLeft = 0;
 });
